@@ -1,0 +1,5 @@
+*.armv7hl
+pkg
+files
+blipserver/blipserver-knpowermeter
+*~
