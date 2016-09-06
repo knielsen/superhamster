@@ -1,0 +1,16 @@
+[Unit]
+Description=Blip Server
+Requires=dev-ttyACM0.device
+After=dev-ttyACM0.device
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/usr/share/blipserver
+ExecStartPre=/bin/stty -F /dev/ttyACM0 raw -echo -hup cs8 parenb -cstopb 500000
+ExecStart=/usr/bin/lem /usr/share/blipserver/blip.lua
+Restart=always
+RestartSec=0
+
+[Install]
+Alias=multi-user.target.wants/blipserver.service

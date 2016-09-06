@@ -1,0 +1,33 @@
+version=knpowermeter
+release=3
+sources=("https://github.com/knielsen/blipserver/archive/${version}.tar.gz")
+sha1sum=('ccfa32d02f1a2ee25b2f7f87b9e13d4c38b63a7f')
+makedepends=(lem-devel lem-mariadb)
+
+config-blipserver() {
+  description="Blipserver for monitoring power usage"
+  depends=(lem lem-mariadb)
+  files=(
+    'usr/share/blipserver/**'
+    etc/systemd/system/blipserver.service
+  )
+}
+
+prepare() {
+  cd "blipserver-$version"
+  if [ -e ../fixpasswd.patch ]; then patch -Np1 -i ../fixpasswd.patch ; fi
+}
+
+build() {
+	echo "Nothing to build."
+}
+
+package() {
+  cd "../blipserver-$version"
+  mkdir -p "$pkgdir"/usr/share/blipserver/
+  cp blip.lua *.js *.html favicon.ico ribbon.png "$pkgdir"/usr/share/blipserver/
+  mkdir -p "$pkgdir"/etc/systemd/system
+  cp ../blipserver.service "$pkgdir"/etc/systemd/system/
+}
+
+# vim: set ft=sh ts=2 sw=2 et:
