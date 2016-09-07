@@ -1,7 +1,7 @@
-version=knpowermeter
-release=3
-sources=("https://github.com/knielsen/blipserver/archive/${version}.tar.gz")
-sha1sum=('ccfa32d02f1a2ee25b2f7f87b9e13d4c38b63a7f')
+version=blipserver-1.0
+release=1
+sources=("https://github.com/labitat/blipserver/archive/${version}.tar.gz")
+sha1sum=('b7ec977a8db621008e9872a946671e195038d769')
 makedepends=(lem-devel lem-mariadb)
 
 config-blipserver() {
@@ -15,7 +15,7 @@ config-blipserver() {
 
 prepare() {
   cd "blipserver-$version"
-  if [ -e ../fixpasswd.patch ]; then patch -Np1 -i ../fixpasswd.patch ; fi
+  if [ -e ../fixpasswd.patch ]; then patch -Np0 -i ../fixpasswd.patch ; fi
 }
 
 build() {
